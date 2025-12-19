@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash -e
-# Kali Nethunter 2025.3 rootfs 安装脚本（Termux 无需 root）
+# Kali Nethunter 2025.4 rootfs 安装脚本（Termux 无需 root）
 # 支持 full / minimal / nano 手动选择版本
 # 处理“文件名与 SHA256SUMS 中文件名不同”的情况
 # 作者：黑客驰（hackerchi）
@@ -113,14 +113,14 @@ checkdeps() {
 # 真实目录中的 rootfs 文件名：
 #   kali-nethunter-rootfs-${chroot}-${SETARCH}.tar.xz
 # SHA256SUMS 文件中对应的文件名：
-#   kali-nethunter-2025.3-rootfs-${chroot}-${SETARCH}.tar.xz
+#   kali-nethunter-2025.4-rootfs-${chroot}-${SETARCH}.tar.xz
 
 seturl() {
 	BASEURL="https://kali.download/nethunter-images/current/rootfs"
 	# 实际下载的文件名（无版本号）
 	REAL_TAR_NAME_NO_VER="kali-nethunter-rootfs-${chroot}-${SETARCH}.tar.xz"
-	# SHA256SUMS 中的文件名（带 2025.3 版本号）
-	REAL_TAR_NAME_VER="kali-nethunter-2025.3-rootfs-${chroot}-${SETARCH}.tar.xz"
+	# SHA256SUMS 中的文件名（带 2025.4 版本号）
+	REAL_TAR_NAME_VER="kali-nethunter-2025.4-rootfs-${chroot}-${SETARCH}.tar.xz"
 	URL="${BASEURL}/${REAL_TAR_NAME_NO_VER}"
 	SHA_INDEX="${BASEURL}/SHA256SUMS"
 }
@@ -173,8 +173,8 @@ getsha() {
 	echo " [*] SHA256SUMS 文件前几行示例："
 	head "$SUMFILE_ALL" | sed 's/^/    /'
 
-	# 使用带 2025.3 的文件名匹配
-	if ! grep -E "[0-9a-fA-F]{64}  ${REAL_TAR_NAME_VER}$" "$SUMFILE_ALL" \
+	# 使用带 2025.4 的文件名匹配
+	if ! grep -E "[0-9a-fA-F]{64}[[:space:]]+${REAL_TAR_NAME_VER}$" "$SUMFILE_ALL" \
 		> "kalifs-${SETARCH}-${chroot}.sha256sum"; then
 		printf "$red[!] 在 SHA256SUMS 中未找到文件：${REAL_TAR_NAME_VER}\n"
 		printf "    请确认远程目录与版本是否匹配。${reset}\n"
@@ -381,8 +381,10 @@ resolvconf
 ################
 
 finalwork() {
+	# 获取脚本所在目录
+	SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 	DESTINATION="$DESTINATION" SETARCH="$SETARCH" \
-		bash "$HOME/Nethunter-In-Termux/finaltouchup.sh"
+		bash "$SCRIPT_DIR/finaltouchup.sh"
 } 
 finalwork
 
