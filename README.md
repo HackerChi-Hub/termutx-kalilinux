@@ -1,4 +1,4 @@
-# Kali Nethunter 2025.3 Termux 安装脚本说明
+# Kali Nethunter 2025.4 Termux 安装脚本说明
 
 ## 简介
 本仓库提供由 **黑客驰（hackerchi）** 编写的 Termux 无需 root 安装 Kali Nethunter 脚本，自动完成以下流程：
@@ -71,12 +71,12 @@
 
 2. **给脚本执行权限**  
    ```bash
-   chmod +x install.sh finaltouchup.sh
+   chmod +x kalinethunter finaltouchup.sh
    ```
 
 3. **运行安装脚本**  
    ```bash
-   ./install.sh
+   ./kalinethunter
    ```
    - 按提示选择变体（full/minimal/nano）
    - 如需跳过 HTTPS 校验可传参 `--insecure`
@@ -94,7 +94,7 @@
    - 若 `getprop ro.product.cpu.abi` 非 `arm64-v8a` 或 `armeabi/armeabi-v7a`，安装会终止。
 
 2. **下载失败**  
-   - 检查网络或使用 `./install.sh --insecure` 绕过证书问题（不推荐）。
+   - 检查网络或使用 `./kalinethunter --insecure` 绕过证书问题（不推荐）。
 
 3. **SHA 校验失败**  
    - 删除 `kalifs-*.tar.xz` 后重跑脚本；确保 `SHA256SUMS` 来自同一目录。
